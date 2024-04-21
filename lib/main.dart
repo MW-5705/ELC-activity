@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
 }
 class MyAppState extends ChangeNotifier{
   var page = "Mehar";
+  var professions = ["Plumber","Electrician","Waiter","Helper","Car Washer"];
   @override
   void notifyListeners() {
     // TODO: implement notifyListeners
@@ -246,36 +247,81 @@ class FavouritesPage extends StatelessWidget{
       @override
       Widget build(BuildContext context){
         var appState = context.watch<MyAppState>();
+        List<String> kaam = appState.professions;
         var title = "Plumber";
         var style = TextStyle(color: Colors.blue);
-        var style_1 = TextStyle(fontSize: 50);
+        var style_1 = TextStyle(fontSize: 50, color: Colors.black, overflow: TextOverflow() );
+        var color = Colors.green;
 
         return Scaffold(
           appBar: AppBar(title:  Text("Job Finder", style: style,textAlign: TextAlign.center,),backgroundColor: Colors.black,),
-          body: SafeArea(
-            child: Container(
-              color: Colors.black,
-              child: Column(
-                children: [
-                  Row(children: [SizedBox(width: 275,),
-                  CupertinoButton(child: Text("Logout", style: style,), onPressed: (){
-                    Navigator.pop(context);
-                  })],),
-                  Container(
-                height: 250,
-                width: 225,
-                color: Colors.blueAccent,
+          body: Center(child: SingleChildScrollView(
+            // appBar: AppBar(title:  Text("Job Finder", style: style,textAlign: TextAlign.center,),backgroundColor: Colors.black,),
+            child: SafeArea(
+              child: Container(
+                color: Colors.black,
                 child: Column(
                   children: [
-                    Text(title, style: style_1,)
-                    ],),
-              ),
-                ],
+                    Row(children: [SizedBox(width: 275,),
+                    CupertinoButton(child: Text("Logout", style: style,),
+                    
+                     onPressed: (){
+                      Navigator.pop(context);
+                    })],),
+                    Container(
+                      
+                        
+                          child: Column(children: [
+                            // for (String profession in kaam) 
+                              jobCard(color: color,title: title,style_1: style_1,),
+                               SizedBox(height: 10,),
+                              jobCard(color: color,title: "Electrician",style_1: style_1,),
+                               SizedBox(height: 10,),
+                              jobCard(color: color,title: "Waiter",style_1: style_1,),
+                               SizedBox(height: 10,),
+                              jobCard(color: color,title: "Delivery Boy",style_1: style_1,),
+                               SizedBox(height: 10,),
+                              jobCard(color: color,title: "Car Washer",style_1: style_1,),
+                               SizedBox(height: 10,)
+                              ],),)
+                        ,
+                      
+                    
+                    
+                  ],
+                ),
               ),
             ),
           ),
-        );
+        ));
         
         
         
 }}
+
+class jobCard extends StatelessWidget {
+  const jobCard({
+    super.key,
+    required this.color,
+    required this.title,
+    required this.style_1,
+  });
+
+  final MaterialColor color;
+  final String title;
+  final TextStyle style_1;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+                    height: 250,
+                    width: 225,
+                    color: color,
+                    // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                    child: Column(
+    children: [
+      Text(title, style: style_1,)
+      ],),
+                  );
+  }
+}
