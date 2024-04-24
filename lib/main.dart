@@ -1,3 +1,4 @@
+// import 'dart:js';
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         title: 'Job Finder',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(40, 4, 5, 32)),
+          colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(0, 255, 255, 255)),
           // textSelectionTheme: TextSelectionThemeData.onPrimary,
           textTheme: GoogleFonts.notoSerifDisplayTextTheme(
           
@@ -71,34 +72,37 @@ class _MyHomePage extends State<MyHomePage> {
     final style = theme.textTheme.displayMedium!.copyWith(
       color: Colors.blueAccent,
       decoration: null,
+      fontFamily: "Oswald" 
       
     );
     
     return Scaffold(
+      // appBar: AppBar(title: Text("QuickHire"),),
       body: Center(
       child: Column(
         
           children: [Expanded(
             child: Container(
-      color: Colors.black,
+      color: Colors.white,
       
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
               
             
-            Text("Job Finder",style: style,),
-            SizedBox(height: 20,),
+            Text("QuickHire",style: style,),
+            // SizedBox(height: 300,),
+            Image.asset("assets\image.jpeg"),
             
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
               decoration: const InputDecoration(
               border: UnderlineInputBorder(),
-              hintStyle: TextStyle(color: Colors.white),
-              labelStyle: TextStyle(color: Colors.white),
+              hintStyle: TextStyle(color: Colors.black),
+              labelStyle: TextStyle(color: Colors.black),
               
-              labelText: 'Enter your username',
+              labelText: 'Username',
               hintText: 'mehar_walia0505'
               // errorStyle: DefaultTextStyle(style: style, child: ),
               // fillColor: Color.fromARGB(255, 248, 246, 246)
@@ -112,20 +116,21 @@ class _MyHomePage extends State<MyHomePage> {
                               }
                               return null;
                              },
-                             style: TextStyle(color: Colors.white),
+                             style: TextStyle(color: Colors.black),
                              controller: myController,
                             ),
             ),
+            SizedBox(height: 5,),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
               decoration: const InputDecoration(
               border: UnderlineInputBorder(),
-              hintStyle: TextStyle(color: Colors.white),
-              labelStyle: TextStyle(color: Colors.white),
+              hintStyle: TextStyle(color: Colors.black),
+              labelStyle: TextStyle(color: Colors.black),
           
               
-              labelText: 'Enter your Password',
+              labelText: 'Password',
               hintText: '***********'
               // fillColor: Color.fromARGB(255, 248, 246, 246)
               // style: const TextStyle(color: Colors.white),
@@ -138,25 +143,40 @@ class _MyHomePage extends State<MyHomePage> {
                               }
                               return null;
                              },
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.black),
                             ),
             ),
-            CupertinoButton(
-              onPressed: ()
-              {
-                // if(_formKey.currentState != null&&_formKey.currentState!.validate()){
-                //   ScaffoldMessenger.of(context).showSnackBar(
-                //     const SnackBar(content: Text("Validating Credentials"),backgroundColor: Colors.white,)
-                //   );
-                    print("hehe");
-                    Navigator.push(context, CupertinoPageRoute(builder: (context) =>  FavouritesPage()),);
-                // page = FavouritesPage();
-                }
+            SizedBox(height: 10,),
+            Container(
+              height: 57,
+            
+            //   margin: const EdgeInsets.all(15.0),
+            // padding: const EdgeInsets.all(3.0),
+            
+            // // color: Colors.black,
+            decoration: BoxDecoration(
+            border: Border.all(color: Colors.black),
+            color: Colors.black,  
+            borderRadius: BorderRadius.circular(10),
+
+            ),
+              child: CupertinoButton(
+                onPressed: ()
+                {
+                  // if(_formKey.currentState != null&&_formKey.currentState!.validate()){
+                  //   ScaffoldMessenger.of(context).showSnackBar(
+                  //     const SnackBar(content: Text("Validating Credentials"),backgroundColor: Colors.white,)
+                  //   );
+                      print("hehe");
+                      Navigator.push(context, CupertinoPageRoute(builder: (context) =>  FavouritesPage()),);
+                  // page = FavouritesPage();
+                  }
+                  
                 
-              
-                
-              ,
-              child: Text("Submit")),
+                  
+                ,
+                child: Text("Submit",style: TextStyle(color: Colors.blue,fontSize: 25,),)),
+            ),
                       ],),
       
     )
@@ -248,18 +268,22 @@ class FavouritesPage extends StatelessWidget{
       Widget build(BuildContext context){
         var appState = context.watch<MyAppState>();
         List<String> kaam = appState.professions;
-        var title = "Plumber";
-        var style = TextStyle(color: Colors.blue);
-        var style_1 = TextStyle(fontSize: 50, color: Colors.black, overflow: TextOverflow() );
+        var title = "Uber Driver";
+        var style = TextStyle(color: Colors.blue, fontFamily: "Sans Serif");
+        var style_1 = TextStyle(fontSize: 40, color: Colors.black,fontFamily: "Sans Serif" );
         var color = Colors.green;
+        var color1 = Colors.purple;
+        var color2 = Colors.brown;
+        var color3 = Colors.red;
+        var color4 = Colors.blue;
 
         return Scaffold(
-          appBar: AppBar(title:  Text("Job Finder", style: style,textAlign: TextAlign.center,),backgroundColor: Colors.black,),
+          appBar: AppBar(title:  Text("QuickHire", style: style,textAlign: TextAlign.center,),),
           body: Center(child: SingleChildScrollView(
             // appBar: AppBar(title:  Text("Job Finder", style: style,textAlign: TextAlign.center,),backgroundColor: Colors.black,),
             child: SafeArea(
               child: Container(
-                color: Colors.black,
+                color: Colors.white,
                 child: Column(
                   children: [
                     Row(children: [SizedBox(width: 275,),
@@ -268,20 +292,24 @@ class FavouritesPage extends StatelessWidget{
                      onPressed: (){
                       Navigator.pop(context);
                     })],),
+                    Text("All Jobs Available", style: TextStyle(color: Colors.blue, fontSize: 40,fontFamily: "Sans Serif" ),textAlign: TextAlign.left),
                     Container(
                       
                         
                           child: Column(children: [
                             // for (String profession in kaam) 
-                              jobCard(color: color,title: title,style_1: style_1,),
+                            jobCard(title: "Swiggy Valet",style_1: style_1,),
                                SizedBox(height: 10,),
-                              jobCard(color: color,title: "Electrician",style_1: style_1,),
+                               jobCard(title: "Shop Attendant",style_1: style_1,),
                                SizedBox(height: 10,),
-                              jobCard(color: color,title: "Waiter",style_1: style_1,),
+                               jobCard(title: "Office Peon",style_1: style_1,),
                                SizedBox(height: 10,),
-                              jobCard(color: color,title: "Delivery Boy",style_1: style_1,),
+                              jobCard(title: title,style_1: style_1,),
                                SizedBox(height: 10,),
-                              jobCard(color: color,title: "Car Washer",style_1: style_1,),
+                              
+                              
+                              
+                              jobCard(title: "Dish Washer",style_1: style_1,),
                                SizedBox(height: 10,)
                               ],),)
                         ,
@@ -302,26 +330,81 @@ class FavouritesPage extends StatelessWidget{
 class jobCard extends StatelessWidget {
   const jobCard({
     super.key,
-    required this.color,
+    // required this.color,
     required this.title,
     required this.style_1,
   });
+  
 
-  final MaterialColor color;
+  // final MaterialColor color;
   final String title;
   final TextStyle style_1;
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    // var rang = theme
     return Container(
-                    height: 250,
+                    height: 175,
                     width: 225,
-                    color: color,
+                    
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [BoxShadow(
+                      // color: Colors.greenAccent[200],
+                      offset: const Offset(
+                        5.0,
+                        5.0,
+                      ),
+                      blurRadius: 10.0,
+                      spreadRadius: 2.0,
+                    ), ]
+                    ),
                     // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
                     child: Column(
     children: [
-      Text(title, style: style_1,)
+      Text(title, style: style_1,textAlign: TextAlign.center,),
+      CupertinoButton(
+        child: Text("More Info",style: TextStyle(color: Colors.black),),
+         onPressed: (){
+
+          print("hehe");
+          Navigator.push(context, CupertinoPageRoute(builder: (context) =>  jobInfo(title: title, style_1: style_1,)),);
+          })
       ],),
                   );
   }
+}
+class jobInfo extends StatelessWidget{
+  const jobInfo({
+    super.key,
+    
+    required this.title,
+    required this.style_1,
+  });
+  // final MaterialColor color;
+  final String title;
+  final TextStyle style_1;
+  @override
+  Widget build(BuildContext context){
+    var appState = context.watch<MyAppState>();
+    return Scaffold(
+      appBar: AppBar(title: Text(title),),
+      body: Center(
+        child: Column(
+          children: [
+            CupertinoButton(
+              child: Text("Out"), 
+              onPressed: (){Navigator.pop(context);}
+              ),
+              ListView(
+                // for (var job in )
+              )
+              ],
+              ),
+              ),
+              );
+  }
+
 }
