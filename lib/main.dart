@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
 }
 class MyAppState extends ChangeNotifier{
   var page = "Mehar";
-  var professions = [{"Swiggy Valet":["",5000,""]},{"Shop Attendant":["",5000,""]},{"Office Peon":["",5000,""]},{"Uber Driver":["",5000,""]},{"Security Guard":["",5000,""]}]``;
+  var professions = [{"Swiggy Valet":["",5000,""]},{"Shop Attendant":["",5000,""]},{"Office Peon":["",5000,""]},{"Uber Driver":["",5000,""]},{"Security Guard":["",5000,""]}];
   @override
   void notifyListeners() {
     // TODO: implement notifyListeners
@@ -75,7 +75,7 @@ class _MyHomePage extends State<MyHomePage> {
     var appState = context.watch<MyAppState>();
     final theme = Theme.of(context);
     final style = theme.textTheme.displayMedium!.copyWith(
-      color: Colors.blueAccent,
+      
       decoration: null,
       fontFamily: "Roboto" 
       
@@ -180,7 +180,7 @@ class _MyHomePage extends State<MyHomePage> {
                 
                   
                 ,
-                child: Text("Submit",style: TextStyle(color: Colors.blue,fontSize: 25,),)),
+                child: Text("Submit",style: TextStyle(color: Colors.white,fontSize: 25,),)),
             ),
                       ],),
       
@@ -349,7 +349,7 @@ class jobCard extends StatelessWidget {
   // final MaterialColor color;
   final String title;
   final TextStyle style_1;
-  final Map kaam;
+  final List kaam;
 
   @override
   Widget build(BuildContext context) {
@@ -406,7 +406,7 @@ class jobInfo extends StatelessWidget{
   // final MaterialColor color;
   final String title;
   final TextStyle style_1;
-  final Map kaam;
+  final List kaam;
   @override
   Widget build(BuildContext context){
     // var appState = context.watch<MyAppState>();
@@ -415,14 +415,20 @@ class jobInfo extends StatelessWidget{
     return Scaffold(
           body: ListView(
             children: [
+              CupertinoButton(
+                child: Text("Out"), 
+                onPressed:(){
+                  Navigator.pop(context);
+                }),
               Padding(
                 padding: const EdgeInsets.all(20.0),
+
                 child: Text("You have ${kaam.length} favourite(s)"),
               ),
-              for (var pair in kaam)
+              // for (var pair in kaam)
                   ListTile(
                     // leading: Icons.favorite,
-                    title: Text(pair),
+                    // title:  Text(pair),
                   )
             ],        
           
