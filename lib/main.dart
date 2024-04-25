@@ -8,6 +8,11 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/services.dart' show rootBundle;
+
+Future<String> loadAsset() async {
+  return await rootBundle.loadString('assets/config.json');
+}
 
 void main() {
   runApp(const MyApp());
@@ -37,7 +42,7 @@ class MyApp extends StatelessWidget {
 }
 class MyAppState extends ChangeNotifier{
   var page = "Mehar";
-  var professions = ["Plumber","Electrician","Waiter","Helper","Car Washer"];
+  var professions = [{"Swiggy Valet":["",5000,""]},{"Shop Attendant":["",5000,""]},{"Office Peon":["",5000,""]},{"Uber Driver":["",5000,""]},{"Security Guard":["",5000,""]}]``;
   @override
   void notifyListeners() {
     // TODO: implement notifyListeners
@@ -72,7 +77,7 @@ class _MyHomePage extends State<MyHomePage> {
     final style = theme.textTheme.displayMedium!.copyWith(
       color: Colors.blueAccent,
       decoration: null,
-      fontFamily: "Oswald" 
+      fontFamily: "Roboto" 
       
     );
     
@@ -92,7 +97,7 @@ class _MyHomePage extends State<MyHomePage> {
             
             Text("QuickHire",style: style,),
             // SizedBox(height: 300,),
-            Image.asset("assets\image.jpeg"),
+            Image.asset('assets/image.jpeg',height: 300,),
             
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -103,7 +108,7 @@ class _MyHomePage extends State<MyHomePage> {
               labelStyle: TextStyle(color: Colors.black),
               
               labelText: 'Username',
-              hintText: 'mehar_walia0505'
+              hintText: '102303223'
               // errorStyle: DefaultTextStyle(style: style, child: ),
               // fillColor: Color.fromARGB(255, 248, 246, 246)
               // style: const TextStyle(color: Colors.white),
@@ -131,7 +136,7 @@ class _MyHomePage extends State<MyHomePage> {
           
               
               labelText: 'Password',
-              hintText: '***********'
+              hintText: '102303225'
               // fillColor: Color.fromARGB(255, 248, 246, 246)
               // style: const TextStyle(color: Colors.white),
               
@@ -267,10 +272,10 @@ class FavouritesPage extends StatelessWidget{
       @override
       Widget build(BuildContext context){
         var appState = context.watch<MyAppState>();
-        List<String> kaam = appState.professions;
+        var kaam = appState.professions;
         var title = "Uber Driver";
-        var style = TextStyle(color: Colors.blue, fontFamily: "Sans Serif");
-        var style_1 = TextStyle(fontSize: 40, color: Colors.black,fontFamily: "Sans Serif" );
+        var style = TextStyle(color: Colors.blue, fontFamily: "Sans Serif", );
+        var style_1 = TextStyle(fontSize: 25, color: Colors.black,fontFamily: "Sans Serif" );
         var color = Colors.green;
         var color1 = Colors.purple;
         var color2 = Colors.brown;
@@ -278,7 +283,7 @@ class FavouritesPage extends StatelessWidget{
         var color4 = Colors.blue;
 
         return Scaffold(
-          appBar: AppBar(title:  Text("QuickHire", style: style,textAlign: TextAlign.center,),),
+          appBar: AppBar(title:  Text("QuickHire", style: style,textAlign: TextAlign.center,),bottomOpacity: 500,),
           body: Center(child: SingleChildScrollView(
             // appBar: AppBar(title:  Text("Job Finder", style: style,textAlign: TextAlign.center,),backgroundColor: Colors.black,),
             child: SafeArea(
@@ -292,24 +297,28 @@ class FavouritesPage extends StatelessWidget{
                      onPressed: (){
                       Navigator.pop(context);
                     })],),
-                    Text("All Jobs Available", style: TextStyle(color: Colors.blue, fontSize: 40,fontFamily: "Sans Serif" ),textAlign: TextAlign.left),
+                    Row(
+                      children: [
+                        Text("Showing ${appState.professions.length} Jobs", style: TextStyle(color: Colors.black, fontSize: 25, fontFamily: "Sans Serif" ),textAlign: TextAlign.right),
+                      ],
+                    ),
                     Container(
                       
                         
                           child: Column(children: [
                             // for (String profession in kaam) 
-                            jobCard(title: "Swiggy Valet",style_1: style_1,),
+                            jobCard(title: "Swiggy Valet",style_1: style_1,kaam: kaam,),
                                SizedBox(height: 10,),
-                               jobCard(title: "Shop Attendant",style_1: style_1,),
+                               jobCard(title: "Shop Attendant",style_1: style_1,kaam: kaam,),
                                SizedBox(height: 10,),
-                               jobCard(title: "Office Peon",style_1: style_1,),
+                               jobCard(title: "Office Peon",style_1: style_1,kaam: kaam,),
                                SizedBox(height: 10,),
-                              jobCard(title: title,style_1: style_1,),
+                              jobCard(title: title,style_1: style_1,kaam: kaam,),
                                SizedBox(height: 10,),
                               
                               
                               
-                              jobCard(title: "Dish Washer",style_1: style_1,),
+                              jobCard(title: "Security Guard",style_1: style_1,kaam: kaam,),
                                SizedBox(height: 10,)
                               ],),)
                         ,
@@ -333,12 +342,14 @@ class jobCard extends StatelessWidget {
     // required this.color,
     required this.title,
     required this.style_1,
+    required this.kaam,
   });
   
 
   // final MaterialColor color;
   final String title;
   final TextStyle style_1;
+  final Map kaam;
 
   @override
   Widget build(BuildContext context) {
@@ -346,7 +357,7 @@ class jobCard extends StatelessWidget {
     // var rang = theme
     return Container(
                     height: 175,
-                    width: 225,
+                    width: 290,
                     
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -354,24 +365,32 @@ class jobCard extends StatelessWidget {
                       boxShadow: [BoxShadow(
                       // color: Colors.greenAccent[200],
                       offset: const Offset(
-                        5.0,
-                        5.0,
+                        0.25,
+                        0.25,
                       ),
-                      blurRadius: 10.0,
-                      spreadRadius: 2.0,
+                      blurRadius: 0.25,
+                      spreadRadius: 0.50,
                     ), ]
                     ),
                     // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
                     child: Column(
     children: [
-      Text(title, style: style_1,textAlign: TextAlign.center,),
-      CupertinoButton(
-        child: Text("More Info",style: TextStyle(color: Colors.black),),
-         onPressed: (){
-
-          print("hehe");
-          Navigator.push(context, CupertinoPageRoute(builder: (context) =>  jobInfo(title: title, style_1: style_1,)),);
-          })
+      Row(
+        children: [
+          Text(title, style: style_1,textAlign: TextAlign.right,),
+        ],
+      ),
+      Row(
+        children: [
+          CupertinoButton(
+            child: Text("More Info",style: TextStyle(color: Colors.black),textAlign: TextAlign.right,),
+             onPressed: (){
+          
+              print("hehe");
+              Navigator.push(context, CupertinoPageRoute(builder: (context) =>  jobInfo(title: title, style_1: style_1,kaam: kaam,)),);
+              }),
+        ],
+      )
       ],),
                   );
   }
@@ -382,29 +401,33 @@ class jobInfo extends StatelessWidget{
     
     required this.title,
     required this.style_1,
+    required this.kaam,
   });
   // final MaterialColor color;
   final String title;
   final TextStyle style_1;
+  final Map kaam;
   @override
   Widget build(BuildContext context){
-    var appState = context.watch<MyAppState>();
+    // var appState = context.watch<MyAppState>();
+    // List<String> kaam = appState.professions;
+
     return Scaffold(
-      appBar: AppBar(title: Text(title),),
-      body: Center(
-        child: Column(
-          children: [
-            CupertinoButton(
-              child: Text("Out"), 
-              onPressed: (){Navigator.pop(context);}
+          body: ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text("You have ${kaam.length} favourite(s)"),
               ),
-              ListView(
-                // for (var job in )
-              )
-              ],
-              ),
-              ),
-              );
+              for (var pair in kaam)
+                  ListTile(
+                    // leading: Icons.favorite,
+                    title: Text(pair),
+                  )
+            ],        
+          
+          ),
+        );
   }
 
 }
