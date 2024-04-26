@@ -26,6 +26,11 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/image.jpeg
+    - assets/Images/image.jpeg
+    - assets/Images/office-peon-uniform.jpg
+    - assets/Images/Security-Guard.jpg
+    - assets/Images/Swiggy-Logo.png
+    - assets/Images/Uber-Logo.png
+    - assets/Images/shop-attendant.JPG
     
      

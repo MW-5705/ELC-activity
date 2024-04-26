@@ -44,11 +44,11 @@ class MyApp extends StatelessWidget {
 class MyAppState extends ChangeNotifier{
   var page = "Mehar";
   var professions = [{"Swiggy Valet":["",5000,""]},{"Shop Attendant":["",5000,""]},{"Office Peon":["",5000,""]},{"Uber Driver":["",5000,""]},{"Security Guard":["",5000,""]}];
-  var info1 = ["Swiggy",15000,"Leela Bhawan"];
-  var info2 = ["Sahni Bakery",25000,"Defence Colony"];
-  var info3 = ["General Logistics",20000,"Leela Bhawan"];
-  var info4 = ["Uber",40000,"Patiala-Rajpura"];
-  var info5 = ["Vedantu Center",30000,"Model Town"];
+  var info1 = ["Swiggy",1500,"Leela Bhawan","As a Swiggy Valet, your main role will be to pick up food orders from restaurants and deliver them to customers promptly and accurately.","assets/Images/Swiggy-Logo.png","per day"];
+  var info2 = ["Sahni Bakery",25000,"Defence Colony","As a Shop Attendant, you will assist customers in the store by providing product information, helping with purchases, and ensuring a pleasant shopping experience.","assets/Images/shop-attendant.JPG","per month"];
+  var info3 = ["General Logistics",5000,"Leela Bhawan","As an Office Peon, you will support office operations by handling tasks like mail delivery, maintaining office supplies, and assisting with various administrative duties.","assets/Images/office-peon-uniform.jpg","per week"];
+  var info4 = ["Uber",5000,"Patiala-Rajpura","As an Uber Driver, your primary responsibility will be to safely transport passengers from one location to another using the Uber app.","assets/Images/Uber-Logo.png","per day"];
+  var info5 = ["Vedantu Center",3500,"Model Town","Your role as a Security Guard will involve protecting people and property by patrolling, monitoring surveillance systems, and responding to security incidents.","assets/Images/Security-Guard.jpg","per week"];
   @override
   void notifyListeners() {
     // TODO: implement notifyListeners
@@ -67,19 +67,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePage extends State<MyHomePage> {
-  final myController = TextEditingController();
-    @override 
-    void dispose(){
-      myController.dispose();
-      super.dispose();
-    }
-    final _formKey = GlobalKey<FormState>();
+  
 
     
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
     final theme = Theme.of(context);
+    String Username = '102303223';
+    String Password = '102303225';
+    String usernamei = '';
+    String passwordi = '';
     final style = theme.textTheme.displayMedium!.copyWith(
       
       decoration: null,
@@ -101,35 +99,34 @@ class _MyHomePage extends State<MyHomePage> {
           children: [
               
             
-            Text("Buddha's Job",style: style,),
+            Text("WorkDash",style: style,),
             // SizedBox(height: 300,),
-            Image.asset('assets/image.jpeg',height: 300,),
-            Text("Buddha's Job"),
+            // Image.asset('assets/Images/image.jpeg',height: 300,),
+            Text("Empowering your job hunt",style: TextStyle(fontFamily: "Roboto"),),
             
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
+              child: TextField(
               decoration: const InputDecoration(
               border: UnderlineInputBorder(),
               hintStyle: TextStyle(color: Colors.black),
               labelStyle: TextStyle(color: Colors.black, fontFamily: "Roboto"),
               
               labelText: 'Username',
-              hintText: '102303223'
+              hintText: 'abc_def'
               // errorStyle: DefaultTextStyle(style: style, child: ),
               // fillColor: Color.fromARGB(255, 248, 246, 246)
               // style: const TextStyle(color: Colors.white),
               
               // 
                              ),
-                             validator: (value){
-                              if(value == null){
-                                return "Please Enter Username";
-                              }
-                              return null;
-                             },
+                            onChanged: (value){
+                              setState(() {
+                                usernamei = value;
+                              });
+                            },
                              style: TextStyle(color: Colors.black),
-                             controller: myController,
+                            //  controller: myController,
                             ),
             ),
             SizedBox(height: 5,),
@@ -143,19 +140,21 @@ class _MyHomePage extends State<MyHomePage> {
           
               
               labelText: 'Password',
-              hintText: '102303225'
+              hintText: '*********'
               // fillColor: Color.fromARGB(255, 248, 246, 246)
               // style: const TextStyle(color: Colors.white),
               
               // style: TextStyle(color: Colors.white),
                              ),
-                             validator: (value){
-                              if(value == null){
-                                return "Please Enter Password";
-                              }
-                              return null;
+                             onChanged: (value){
+                              setState(() {
+                                passwordi = value;
+                              });
+                              print(passwordi);
+                              
                              },
-                          style: TextStyle(color: Colors.black),
+                            
+                          style: TextStyle(color: Colors.black,decorationStyle: TextDecorationStyle.dotted),
                             ),
             ),
             SizedBox(height: 10,),
@@ -179,8 +178,18 @@ class _MyHomePage extends State<MyHomePage> {
                   //   ScaffoldMessenger.of(context).showSnackBar(
                   //     const SnackBar(content: Text("Validating Credentials"),backgroundColor: Colors.white,)
                   //   );
-                      print("hehe");
-                      Navigator.push(context, CupertinoPageRoute(builder: (context) =>  FavouritesPage()),);
+                  
+                  if(true)
+                  {
+                    // print(passwordi);
+                    // print(Password);
+                    Navigator.push(context, CupertinoPageRoute(builder: (context) =>  FavouritesPage()),);
+                    
+
+                  }
+                  
+                      
+                      
                   // page = FavouritesPage();
                   }
                   
@@ -290,7 +299,7 @@ class FavouritesPage extends StatelessWidget{
         var color4 = Colors.blue;
 
         return Scaffold(
-          appBar: AppBar(title:  Text("QuickHire", style: style,textAlign: TextAlign.center,),actions: [CupertinoButton(onPressed: (){Navigator.pop(context);}, child: Text("Logout"))],),
+          appBar: AppBar(title:  Text("Hello, abc_def", style: style,textAlign: TextAlign.center,),actions: [CupertinoButton(onPressed: (){Navigator.pop(context);}, child: Text("Logout"))],),
           body: Center(child: SingleChildScrollView(
             // appBar: AppBar(title:  Text("Job Finder", style: style,textAlign: TextAlign.center,),backgroundColor: Colors.black,),
             child: SafeArea(
@@ -315,7 +324,7 @@ class FavouritesPage extends StatelessWidget{
                                SizedBox(height: 10,),
                                jobCard(title: "Office Peon",style_1: style_1,kaam: appState.info3),
                                SizedBox(height: 10,),
-                              jobCard(title: title,style_1: style_1,kaam: appState.info4),
+                              jobCard(title: "Cab Driver",style_1: style_1,kaam: appState.info4),
                                SizedBox(height: 10,),
                               
                               
@@ -339,7 +348,7 @@ class FavouritesPage extends StatelessWidget{
 }}
 
 class jobCard extends StatelessWidget {
-  const jobCard({
+   jobCard({
     super.key,
     // required this.color,
     required this.title,
@@ -352,62 +361,78 @@ class jobCard extends StatelessWidget {
   final String title;
   final TextStyle style_1;
   final List kaam;
+  var style = TextStyle(fontFamily: "Roboto");
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     // var rang = theme
-    return Container(
-                    height: 175,
-                    width: 350,
-                    
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [BoxShadow(
-                      // color: Colors.greenAccent[200],
-                      offset: const Offset(
-                        0.25,
-                        0.25,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+                      height: 128,
+                      width: 350,
+                      
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [BoxShadow(
+                        // color: Colors.greenAccent[200],
+                        offset: const Offset(
+                          0.25,
+                          0.25,
+                        ),
+                        blurRadius: 0.25,
+                        spreadRadius: 0.50,
+                      ), ]
                       ),
-                      blurRadius: 0.25,
-                      spreadRadius: 0.50,
-                    ), ]
+                      // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(title, style: style_1,textAlign: TextAlign.right,),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          
+                                          Text("At: ${kaam[0]}",style: style,),
+                                          Text("Pay: ${kaam[1]} ${kaam[5]}",textAlign: TextAlign.left,style: style,),
+                                          Text("Location: ${kaam[2]}",style: style,),
+                                        ],
+                                      ),
+                                      
+                                      Row(
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+                                          CupertinoButton(
+                                            child: Text("More Info",style: TextStyle(color: Colors.blue),textAlign: TextAlign.right,),
+                                             onPressed: (){
+                                          
+                                              print("hehe");
+                                              Navigator.push(context, CupertinoPageRoute(builder: (context) =>  jobInfo(title: title, style_1: style_1,kaam: kaam,)),);
+                                              }),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                )
+                                ],),
+                      ),
                     ),
-                    // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                    child: Column(
-    children: [
-      Row(
-        children: [
-          Text(title, style: style_1,textAlign: TextAlign.right,),
-        ],
-      ),
-      Row(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              
-              Text("Company: ${kaam[0]}",style: TextStyle(color: Colors.black),),
-              Text("Pay: ${kaam[1]}",textAlign: TextAlign.left,style: TextStyle(color: Colors.black),),
-              Text("Location: ${kaam[2]}",style: TextStyle(color: Colors.black),),
-            ],
-          ),
-          CupertinoButton(
-            child: Text("More Info",style: TextStyle(color: Colors.blue),textAlign: TextAlign.right,),
-             onPressed: (){
-          
-              print("hehe");
-              Navigator.push(context, CupertinoPageRoute(builder: (context) =>  jobInfo(title: title, style_1: style_1,kaam: kaam,)),);
-              }),
-        ],
-      )
-      ],),
-                  );
+    );
   }
 }
 class jobInfo extends StatelessWidget{
-  const jobInfo({
+   jobInfo({
     super.key,
     
     required this.title,
@@ -418,30 +443,37 @@ class jobInfo extends StatelessWidget{
   final String title;
   final TextStyle style_1;
   final List kaam;
+  var style = TextStyle(fontFamily: "Roboto");
   @override
   Widget build(BuildContext context){
     // var appState = context.watch<MyAppState>();
     // List<String> kaam = appState.professions;
 
     return Scaffold(
-          body: ListView(
-            children: [
-              CupertinoButton(
-                child: Text("Out"), 
-                onPressed:(){
-                  Navigator.pop(context);
-                }),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-
-                child: Text("You have ${kaam.length} favourite(s)"),
-              ),
-              // for (var pair in kaam)
-                  ListTile(
-                    // leading: Icons.favorite,
-                    // title:  Text(pair),
-                  )
-            ],        
+      appBar: AppBar(title: Text(title)),
+          body: Center(
+            child: (
+              Column(
+                children: [
+                  Image.asset("${kaam[4]}",height: 300,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Description:",style: TextStyle(fontFamily: "Roboto",fontWeight: FontWeight.bold),),Text(" ${kaam[3]}",style: style,),
+                      Text("Company:",style: TextStyle(fontFamily: "Roboto",fontWeight: FontWeight.bold),),Text("  ${kaam[0]}",style: style,),
+                      Text("Location:",style: TextStyle(fontFamily: "Roboto",fontWeight: FontWeight.bold),),Text("  ${kaam[2]}",style: style,),
+                      Text("Pay Rate:",style: TextStyle(fontFamily: "Roboto",fontWeight: FontWeight.bold),),Text("  ₹ ${kaam[1]} ${kaam[5]}",style: style,),
+                    ],
+                  ),
+                  ElevatedButton(onPressed: (){
+                    showDialog(context: context, builder: (BuildContext context)
+                    {
+                    return AlertDialog(
+                      title: Text("Your details have been sent!"));
+                  });}, child: Text("Apply now!",style: TextStyle(color: Colors.black,fontFamily: "Roboto"),),)
+                ],
+              )
+            ),        
           
           ),
         );
