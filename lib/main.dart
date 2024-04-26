@@ -2,6 +2,7 @@
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
@@ -43,6 +44,11 @@ class MyApp extends StatelessWidget {
 class MyAppState extends ChangeNotifier{
   var page = "Mehar";
   var professions = [{"Swiggy Valet":["",5000,""]},{"Shop Attendant":["",5000,""]},{"Office Peon":["",5000,""]},{"Uber Driver":["",5000,""]},{"Security Guard":["",5000,""]}];
+  var info1 = ["Swiggy",15000,"Leela Bhawan"];
+  var info2 = ["Sahni Bakery",25000,"Defence Colony"];
+  var info3 = ["General Logistics",20000,"Leela Bhawan"];
+  var info4 = ["Uber",40000,"Patiala-Rajpura"];
+  var info5 = ["Vedantu Center",30000,"Model Town"];
   @override
   void notifyListeners() {
     // TODO: implement notifyListeners
@@ -95,9 +101,10 @@ class _MyHomePage extends State<MyHomePage> {
           children: [
               
             
-            Text("QuickHire",style: style,),
+            Text("Buddha's Job",style: style,),
             // SizedBox(height: 300,),
             Image.asset('assets/image.jpeg',height: 300,),
+            Text("Buddha's Job"),
             
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -105,7 +112,7 @@ class _MyHomePage extends State<MyHomePage> {
               decoration: const InputDecoration(
               border: UnderlineInputBorder(),
               hintStyle: TextStyle(color: Colors.black),
-              labelStyle: TextStyle(color: Colors.black),
+              labelStyle: TextStyle(color: Colors.black, fontFamily: "Roboto"),
               
               labelText: 'Username',
               hintText: '102303223'
@@ -132,7 +139,7 @@ class _MyHomePage extends State<MyHomePage> {
               decoration: const InputDecoration(
               border: UnderlineInputBorder(),
               hintStyle: TextStyle(color: Colors.black),
-              labelStyle: TextStyle(color: Colors.black),
+              labelStyle: TextStyle(color: Colors.black,fontFamily: "Roboto"),
           
               
               labelText: 'Password',
@@ -274,7 +281,7 @@ class FavouritesPage extends StatelessWidget{
         var appState = context.watch<MyAppState>();
         var kaam = appState.professions;
         var title = "Uber Driver";
-        var style = TextStyle(color: Colors.blue, fontFamily: "Sans Serif", );
+        var style = TextStyle(color: Colors.black, fontFamily: "Sans Serif", );
         var style_1 = TextStyle(fontSize: 25, color: Colors.black,fontFamily: "Sans Serif" );
         var color = Colors.green;
         var color1 = Colors.purple;
@@ -283,23 +290,18 @@ class FavouritesPage extends StatelessWidget{
         var color4 = Colors.blue;
 
         return Scaffold(
-          appBar: AppBar(title:  Text("QuickHire", style: style,textAlign: TextAlign.center,),bottomOpacity: 500,),
+          appBar: AppBar(title:  Text("QuickHire", style: style,textAlign: TextAlign.center,),actions: [CupertinoButton(onPressed: (){Navigator.pop(context);}, child: Text("Logout"))],),
           body: Center(child: SingleChildScrollView(
             // appBar: AppBar(title:  Text("Job Finder", style: style,textAlign: TextAlign.center,),backgroundColor: Colors.black,),
             child: SafeArea(
               child: Container(
-                color: Colors.white,
+                color: Color.fromRGBO(240, 240,240, 1),
                 child: Column(
                   children: [
-                    Row(children: [SizedBox(width: 275,),
-                    CupertinoButton(child: Text("Logout", style: style,),
                     
-                     onPressed: (){
-                      Navigator.pop(context);
-                    })],),
                     Row(
                       children: [
-                        Text("Showing ${appState.professions.length} Jobs", style: TextStyle(color: Colors.black, fontSize: 25, fontFamily: "Sans Serif" ),textAlign: TextAlign.right),
+                        Text("Showing ${appState.professions.length} Jobs", style: TextStyle(color: Colors.black, fontSize: 25, fontFamily: "Sans Serif", ),textAlign: TextAlign.right),
                       ],
                     ),
                     Container(
@@ -307,18 +309,18 @@ class FavouritesPage extends StatelessWidget{
                         
                           child: Column(children: [
                             // for (String profession in kaam) 
-                            jobCard(title: "Swiggy Valet",style_1: style_1,kaam: kaam,),
+                            jobCard(title: "Swiggy Valet",style_1: style_1,kaam: appState.info1),
                                SizedBox(height: 10,),
-                               jobCard(title: "Shop Attendant",style_1: style_1,kaam: kaam,),
+                               jobCard(title: "Shop Attendant",style_1: style_1,kaam:appState.info2),
                                SizedBox(height: 10,),
-                               jobCard(title: "Office Peon",style_1: style_1,kaam: kaam,),
+                               jobCard(title: "Office Peon",style_1: style_1,kaam: appState.info3),
                                SizedBox(height: 10,),
-                              jobCard(title: title,style_1: style_1,kaam: kaam,),
+                              jobCard(title: title,style_1: style_1,kaam: appState.info4),
                                SizedBox(height: 10,),
                               
                               
                               
-                              jobCard(title: "Security Guard",style_1: style_1,kaam: kaam,),
+                              jobCard(title: "Security Guard",style_1: style_1,kaam: appState.info5,),
                                SizedBox(height: 10,)
                               ],),)
                         ,
@@ -357,7 +359,7 @@ class jobCard extends StatelessWidget {
     // var rang = theme
     return Container(
                     height: 175,
-                    width: 290,
+                    width: 350,
                     
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -382,8 +384,17 @@ class jobCard extends StatelessWidget {
       ),
       Row(
         children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              
+              Text("Company: ${kaam[0]}",style: TextStyle(color: Colors.black),),
+              Text("Pay: ${kaam[1]}",textAlign: TextAlign.left,style: TextStyle(color: Colors.black),),
+              Text("Location: ${kaam[2]}",style: TextStyle(color: Colors.black),),
+            ],
+          ),
           CupertinoButton(
-            child: Text("More Info",style: TextStyle(color: Colors.black),textAlign: TextAlign.right,),
+            child: Text("More Info",style: TextStyle(color: Colors.blue),textAlign: TextAlign.right,),
              onPressed: (){
           
               print("hehe");
